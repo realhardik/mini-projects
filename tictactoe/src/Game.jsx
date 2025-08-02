@@ -1,71 +1,51 @@
 import React, { useState } from 'react';
+import Board from './components/Board';
+import Status from './components/Status';
+import ResetButton from './components/ResetButton';
+import { calculateWinner } from './utils/gameLogic';
 
 const Game = () => {
+  // State management - demonstrating useState hook
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
 
-  const { winner, line } = calculateWinner(squares);
-  const status = winner
-    ? `Winner: ${winner}`
-    : `Next player: ${xIsNext ? 'X' : 'O'}`;
+  // Calculate winner using the utility function
+  const { winner, line, isTie } = calculateWinner(squares);
 
-  const handleClick = (i) => {
-    if (squares[i] || winner) return;
-    const next = squares.slice();
-    next[i] = xIsNext ? 'X' : 'O';
-    setSquares(next);
+  // Event handler for square clicks
+  const handleSquareClick = (i) => {
+    // Don't allow moves if there's a winner or it's a tie
+    if (squares[i] || winner || isTie) return;
+    
+    const nextSquares = squares.slice();
+    nextSquares[i] = xIsNext ? 'X' : 'O';
+    
+    setSquares(nextSquares);
     setXIsNext(!xIsNext);
   };
 
+  // Event handler for reset button
   const handleReset = () => {
     setSquares(Array(9).fill(null));
     setXIsNext(true);
   };
 
-  const renderSquare = (i) => {
-    const isWinningSquare = line?.includes(i);
-    return (
-      <button
-        key={i}
-        onClick={() => handleClick(i)}
-        className={`w-20 h-20 border text-2xl font-bold flex items-center justify-center transition-all duration-300
-          ${isWinningSquare ? 'bg-green-400 animate-pulse text-white' : 'hover:bg-gray-200 text-white'}
-        `}
-      >
-        {squares[i]}
-      </button>
-    );
-  };
-
   return (
     <div className="bg-[url('src/assets/bg.svg')] flex flex-col items-center justify-center min-h-screen bg-gray-600 p-4">
-      <div className="mb-4 text-xl font-semibold text-white">{status}</div>
-      <div className="grid grid-cols-3 gap-1 mb-4">
-        {squares.map((_, i) => renderSquare(i))}
-      </div>
-      <button
-        onClick={handleReset}
-        className="px-8 py-2 font-semibold text-xl bg-blue-500 text-white rounded-full hover:bg-red-600 transition-all"
-      >
-        Reset
-      </button>
+      {/* Status component with props */}
+      <Status winner={winner} xIsNext={xIsNext} isTie={isTie} />
+      
+      {/* Board component with props */}
+      <Board 
+        squares={squares} 
+        onSquareClick={handleSquareClick} 
+        winningLine={line} 
+      />
+      
+      {/* Reset button component with props */}
+      <ResetButton onReset={handleReset} />
     </div>
   );
-};
-
-const calculateWinner = (squares) => {
-  const lines = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-    [0, 4, 8], [2, 4, 6],            // Diagonals
-  ];
-  for (let line of lines) {
-    const [a, b, c] = line;
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return { winner: squares[a], line };
-    }
-  }
-  return { winner: null, line: null };
 };
 
 export default Game;
