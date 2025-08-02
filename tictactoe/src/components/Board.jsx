@@ -15,7 +15,7 @@ const Board = ({ squares, onSquareClick, winningLine }) => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-1 mb-4">
+    <div className="board">
       {squares.map((_, i) => renderSquare(i))}
     </div>
   );

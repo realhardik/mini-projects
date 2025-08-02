@@ -4,7 +4,7 @@ const ResetButton = ({ onReset }) => {
   return (
     <button
       onClick={onReset}
-      className="px-8 py-2 font-semibold text-xl bg-blue-500 text-white rounded-full hover:bg-red-600 transition-all"
+      className="reset-button"
     >
       Reset
     </button>

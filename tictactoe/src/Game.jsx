@@ -31,7 +31,7 @@ const Game = () => {
   };
 
   return (
-    <div className="bg-[url('src/assets/bg.svg')] flex flex-col items-center justify-center min-h-screen bg-gray-600 p-4">
+    <div className="game-container">
       {/* Status component with props */}
       <Status winner={winner} xIsNext={xIsNext} isTie={isTie} />
       

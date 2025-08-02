@@ -12,7 +12,7 @@ const Status = ({ winner, xIsNext, isTie }) => {
   }
 
   return (
-    <div className="mb-4 text-xl font-semibold text-white">
+    <div className="status">
       {status}
     </div>
   );

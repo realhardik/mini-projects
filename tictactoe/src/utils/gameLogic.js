@@ -20,4 +20,4 @@ export const calculateWinner = (squares) => {
     line: null,
     isTie: isTie
   };
-}; 
+};
