@@ -1,13 +1,16 @@
 /* Game container styles */
 .game-container {
-  background-image: url('src/assets/bg.svg');
+  background: url('src/assets/1.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #4b5563; /* bg-gray-600 */
-  padding: 1rem; /* p-4 */
+  padding: 1rem;
 }
 
 /* Status component styles */
@@ -75,3 +78,18 @@
     opacity: 0.5;
   }
 } 
+.reset-button {
+  padding: 0.5rem 2rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  background-color: #3b82f6; /* Tailwind's blue-500 */
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #dc2626; /* Tailwind's red-600 */
+}

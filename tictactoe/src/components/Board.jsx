@@ -21,4 +21,4 @@ const Board = ({ squares, onSquareClick, winningLine }) => {
   );
 };
 
-export default Board; 
+export default Board;
